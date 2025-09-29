@@ -114,13 +114,26 @@ body {
 /* --- Home Page --- */
 .home-page {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: block;
+    padding: 3rem 2rem;
+    height: 100%;
+    overflow-y: auto;
     text-align: center;
-    padding: 2rem;
 }
+.home-page::-webkit-scrollbar {
+  width: 8px;
+}
+.home-page::-webkit-scrollbar-track {
+  background: transparent;
+}
+.home-page::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+.home-page::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
 .home-header {
     position: absolute;
     top: 2rem;
@@ -128,6 +141,12 @@ body {
     display: flex;
     gap: 0.75rem;
     z-index: 10;
+}
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
 }
 .home-content h1 {
     font-size: 2.8rem;
@@ -137,7 +156,7 @@ body {
 .home-content p {
     font-size: 1.1rem;
     max-width: 600px;
-    margin-bottom: 3rem;
+    margin-bottom: 0;
 }
 .manager-selection {
     display: flex;
@@ -954,14 +973,41 @@ body {
 }
 
 
-/* --- Activity Log Modal --- */
-.activity-log-modal .modal-content {
-    max-width: 700px;
+/* --- Activity Log Widget --- */
+.activity-log-widget {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    width: 100%;
+    max-width: 632px; /* (300px * 2) + 2rem gap */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    text-align: left;
 }
+
+.activity-log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.activity-log-header h2 {
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.activity-log-header p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0.25rem 0 0 0;
+}
+
 .activity-log-filters {
     display: flex;
     gap: 0.5rem;
-    margin-top: 1rem;
     padding: 4px;
     border-radius: 8px;
     background-color: var(--background-start);
@@ -980,12 +1026,11 @@ body {
 }
 
 .activity-log-list {
-    max-height: 50vh;
+    max-height: 40vh;
     overflow-y: auto;
     background-color: var(--background-start);
     padding: 1rem;
     border-radius: 8px;
-    margin-top: 1rem;
     border: 1px solid var(--border);
 }
 .activity-log-list ul {
@@ -1035,8 +1080,10 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.activity-log-modal .modal-footer {
-    justify-content: flex-end; /* Align clear button to the right */
+.activity-log-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
 }
 
 /* QR Code Container */

@@ -4,7 +4,6 @@ import HomePage from './pages/HomePage';
 import TelegramDashboard from './pages/TelegramDashboard/TelegramDashboard';
 import WhatsappDashboard from './pages/WhatsappDashboard/WhatsappDashboard';
 import SettingsModal from './pages/TelegramDashboard/SettingsModal';
-import ActivityLogModal from './components/common/ActivityLogModal';
 
 const defaultHumanizationConfig = {
   isEnabled: false,
@@ -51,7 +50,6 @@ const AppContent: React.FC = () => {
     });
 
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-    const [isActivityLogOpen, setIsActivityLogOpen] = useState(false);
 
     useEffect(() => { localStorage.setItem('telegramApiConfig', JSON.stringify(apiConfig)); }, [apiConfig]);
     useEffect(() => { localStorage.setItem('humanizationConfig', JSON.stringify(humanizationConfig)); }, [humanizationConfig]);
@@ -80,7 +78,7 @@ const AppContent: React.FC = () => {
                 return <WhatsappDashboard onBack={() => setCurrentPage('home')} humanizationConfig={humanizationConfig} addLogEntry={addLogEntry} />;
             case 'home':
             default:
-                return <HomePage onNavigate={setCurrentPage} onOpenSettings={() => setIsSettingsModalOpen(true)} onOpenActivityLog={() => setIsActivityLogOpen(true)} />;
+                return <HomePage onNavigate={setCurrentPage} onOpenSettings={() => setIsSettingsModalOpen(true)} logEntries={activityLog} onClear={handleClearLog} />;
         }
     };
     
@@ -93,14 +91,6 @@ const AppContent: React.FC = () => {
                     onSave={handleSaveSettings}
                     initialApiConfig={apiConfig}
                     initialHumanizationConfig={humanizationConfig}
-                />
-            )}
-            {isActivityLogOpen && (
-                <ActivityLogModal
-                    isOpen={isActivityLogOpen}
-                    onClose={() => setIsActivityLogOpen(false)}
-                    logEntries={activityLog}
-                    onClear={handleClearLog}
                 />
             )}
         </>
